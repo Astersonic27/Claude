@@ -24,3 +24,6 @@ tests/          Automated tests
 seed.py         Demo data
 SPECIFICATION.md
 ```
+
+## Other work in this repository
+- [`task3-orderbot-agent/`](task3-orderbot-agent/): OrderBot, an agentic AI design for automating hardware order processing (3-slide management deck, flowcharts, risk analysis).
