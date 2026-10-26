@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}Dashboard - Kudos{% endblock %}
+{% block body %}
+<header class="topbar">
+  <strong>Kudos</strong>
+  <span>
+    {{ user['display_name'] }}{% if user['is_admin'] %} <span class="badge">admin</span>{% endif %}
+    <form class="inline" method="post" action="{{ url_for('auth.logout') }}">
+      <input type="hidden" name="csrf" value="{{ csrf }}">
+      <button class="link" type="submit">Sign out</button>
+    </form>
+  </span>
+</header>
+<div class="layout" id="app" data-csrf="{{ csrf }}" data-admin="{{ 1 if user['is_admin'] else 0 }}" data-user="{{ user['id'] }}">
+  <section class="card" aria-labelledby="give-h">
+    <h2 id="give-h">Give kudos</h2>
+    <form id="kudos-form" novalidate>
+      <label for="recipient">Colleague</label>
+      <select id="recipient" required><option value="">Select a colleague...</option></select>
+      <p class="field-error" id="recipient-error" role="alert"></p>
+      <label for="message">Message <span class="muted" id="counter">0/500</span></label>
+      <textarea id="message" rows="4" maxlength="500" required placeholder="Thanks for..."></textarea>
+      <p class="field-error" id="message-error" role="alert"></p>
+      <button type="submit" id="submit-btn">Send kudos</button>
+      <p id="form-status" role="status"></p>
+    </form>
+  </section>
+  <section class="card" aria-labelledby="feed-h">
+    <h2 id="feed-h">Recent kudos</h2>
+    <ul id="feed" class="feed"></ul>
+    <p id="feed-empty" class="muted" hidden>No kudos yet - be the first!</p>
+    <button id="load-more" class="secondary" hidden>Load more</button>
+  </section>
+</div>
+<script src="{{ url_for('static', filename='app.js') }}"></script>
+{% endblock %}
